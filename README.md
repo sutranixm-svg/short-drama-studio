@@ -41,5 +41,33 @@ bash adapters/install.sh
 ├── team-manifest.yaml               # 1主4子唯一真相源清单
 ├── .claude/agents/                  # 5 个独立 Bot 声明文件
 ├── adapters/                        # DeepSeek Bot / Grok Bot / 一键安装脚本
+├── tools/                           # 生图 / 生视频 / FFmpeg 粗剪 / MCP Server
+├── .env.example                     # 引擎密钥模板（复制为 .env 后填写）
 └── skills/                          # 6 个核心 Skill（主控路由 + 5大短剧知识库）
 ```
+
+## 音视频自动出片引擎（即梦 / 可灵 / 百炼 / 本地模型 + FFmpeg）
+
+纯文本 Bot 通过调用 `tools/` 下的 CLI 脚本或 `tools/mcp_server.py`，即可端到端生成图片、单镜视频并自动剪辑合成 MP4：
+
+1. **安装依赖与配置环境**
+   ```bash
+   pip install -r tools/requirements.txt
+   cp .env.example .env
+   ```
+2. **切换后端引擎（改 `.env`）**
+   - `mock`：默认干跑模式，无需任何 API Key，用 FFmpeg 占位画面跑通全流程
+   - `bailian`：阿里云百炼（通义万相），异步提交 + 轮询取图
+   - `jimeng`：火山引擎 / 即梦
+   - `kling`：可灵 AI
+   - `local`：本地部署模型（ComfyUI / 自建 REST）
+3. **命令行直接调用**
+   ```bash
+   python tools/gen_image.py --prompt "雨夜公寓门口" --out workspace/ep01/shot_01.png
+   python tools/gen_video.py --prompt "钥匙插入锁孔" --first-frame workspace/ep01/shot_01.png --out workspace/ep01/shot_01.mp4 --duration 2
+   python tools/render_cut.py --clips workspace/ep01/shot_01.mp4 workspace/ep01/shot_02.mp4 --out workspace/ep01/final.mp4 --bgm bgm.mp3
+   ```
+4. **MCP 挂载（可选）**：`python tools/mcp_server.py`，把生图、生视频、粗剪暴露为 Bot 原生工具（需 `pip install fastmcp`）。
+
+> 引擎能力差异：`bailian` 生图会轮询并下载结果；`jimeng` / `kling` 当前只提交请求并返回原始响应，产物下载需按其平台返回结构补全；`mock` 与 `local` 可直接产出文件。
+
