@@ -47,6 +47,39 @@ def escape_filter_path(path: str) -> str:
     return path.replace("\\", "/").replace(":", "\\:")
 
 
+def video_size(path: str, default=(720, 1280)) -> tuple:
+    try:
+        out = probe(path, "stream=width,height", "v").splitlines()[0]
+        w, h = out.split(",")[:2]
+        return int(w), int(h)
+    except Exception:
+        return default
+
+
+def normalize(src: str, dst: str, size: tuple, fps: int = 25) -> bool:
+    """把单镜统一成同一规格：分辨率/帧率/sar 一致，且必定带一条音轨。
+
+    concat -c copy 要求所有输入的流结构一致；混用「有音轨」与「无音轨」的片段时
+    直接拼接会丢流或截断，所以先逐段规范化。返回是否额外补了静音。
+    """
+    w, h = size
+    vf = (
+        f"scale={w}:{h}:force_original_aspect_ratio=decrease,"
+        f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2,setsar=1,fps={fps}"
+    )
+    enc = ["-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p",
+           "-c:a", "aac", "-ar", "44100", "-ac", "2"]
+    if has_audio(src):
+        run(["ffmpeg", "-y", "-i", src, "-vf", vf, *enc, dst])
+        return False
+    run([
+        "ffmpeg", "-y", "-i", src,
+        "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
+        "-vf", vf, "-shortest", *enc, dst,
+    ])
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="短剧 - FFmpeg 自动粗剪合成工具（拼接多镜+叠加独白/BGM+字幕；自动适配无音轨片段）"
@@ -66,9 +99,20 @@ def main():
             raise SystemExit(f"片段不存在: {c}")
 
     with tempfile.TemporaryDirectory() as tmpdir:
+        # 先逐段规范化：统一分辨率/帧率，缺音轨的补静音（否则 concat -c copy 会丢流）
+        notes = []
+        target = video_size(args.clips[0])
+        normalized = []
+        for i, c in enumerate(args.clips):
+            n = os.path.join(tmpdir, f"norm_{i}.mp4")
+            padded = normalize(c, n, target)
+            normalized.append(n)
+            if padded:
+                notes.append(f"片段 {i + 1} 无音轨，已补静音底座")
+
         concat_list = os.path.join(tmpdir, "list.txt")
         with open(concat_list, "w", encoding="utf-8") as f:
-            for c in args.clips:
+            for c in normalized:
                 f.write(f"file '{os.path.abspath(c)}'\n")
 
         stitched = os.path.join(tmpdir, "stitched.mp4")
@@ -81,7 +125,6 @@ def main():
         inputs_count = 1
         filter_parts = []
         audio_streams = []
-        notes = []
 
         if base_has_audio:
             audio_streams.append("[0:a]")
