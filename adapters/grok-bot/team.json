@@ -1,0 +1,58 @@
+{
+  "team": "yuanyi-short-drama-studio",
+  "topology": "hub-and-spoke",
+  "coordinator": "yuanyi-drama-director",
+  "bootstrap_doc": "AGENTS.md",
+  "members": [
+    {
+      "id": "yuanyi-drama-director",
+      "role": "总控主Bot（人机对接与关键词路由）",
+      "prompt_source": "skills/yuanyi-drama-director/SKILL.md",
+      "knowledge": [
+        "skills/yuanyi-drama-director/references/prompt-router.md"
+      ],
+      "delegates": [
+        "sub-script",
+        "sub-assets",
+        "sub-visual",
+        "sub-edit"
+      ]
+    },
+    {
+      "id": "sub-script",
+      "role": "金牌编剧（P01-P10）",
+      "prompt_source": "skills/yuanyi-drama-script/SKILL.md",
+      "knowledge": [
+        "skills/yuanyi-drama-script/references/prompt-templates.md"
+      ]
+    },
+    {
+      "id": "sub-assets",
+      "role": "美术设定（P11-P20）",
+      "prompt_source": "skills/yuanyi-drama-assets/SKILL.md",
+      "knowledge": [
+        "skills/yuanyi-drama-assets/references/prompt-templates.md"
+      ]
+    },
+    {
+      "id": "sub-visual",
+      "role": "分镜与提示词（P21-P40）",
+      "prompt_sources": [
+        "skills/yuanyi-drama-shots/SKILL.md",
+        "skills/yuanyi-drama-prompts/SKILL.md"
+      ],
+      "knowledge": [
+        "skills/yuanyi-drama-shots/references/prompt-templates.md",
+        "skills/yuanyi-drama-prompts/references/prompt-templates.md"
+      ]
+    },
+    {
+      "id": "sub-edit",
+      "role": "剪辑与配乐（P41-P50）",
+      "prompt_source": "skills/yuanyi-drama-edit-music/SKILL.md",
+      "knowledge": [
+        "skills/yuanyi-drama-edit-music/references/prompt-templates.md"
+      ]
+    }
+  ]
+}

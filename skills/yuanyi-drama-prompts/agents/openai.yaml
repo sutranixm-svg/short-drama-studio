@@ -1,0 +1,4 @@
+interface:
+  display_name: "元一 图片与视频提示词"
+  short_description: "把主体、光线、画面和运动说清楚，减少反复猜词和无目的重做。"
+  default_prompt: "请使用 $yuanyi-drama-prompts，根据我的资料协助完成当前短剧任务。"

@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "name": "yuanyi-short-drama-studio",
+  "display_name": "元一AI短剧多智能体团队（1主4子）",
+  "description": "导入即自动部署 1 个总控主Bot + 4 个专业子Bot，内置 50 条短剧提示词一条链关键词路由。",
+  "entry_agent": "yuanyi-drama-director",
+  "manifest": "team-manifest.yaml",
+  "agents": [
+    {
+      "id": "yuanyi-drama-director",
+      "name": "元一短剧总控主Bot",
+      "type": "orchestrator",
+      "skill_path": "skills/yuanyi-drama-director/SKILL.md",
+      "references": [
+        "skills/yuanyi-drama-director/references/prompt-router.md"
+      ]
+    },
+    {
+      "id": "sub-script",
+      "name": "金牌编剧",
+      "type": "subagent",
+      "skill_path": "skills/yuanyi-drama-script/SKILL.md",
+      "references": [
+        "skills/yuanyi-drama-script/references/prompt-templates.md"
+      ]
+    },
+    {
+      "id": "sub-assets",
+      "name": "美术设定",
+      "type": "subagent",
+      "skill_path": "skills/yuanyi-drama-assets/SKILL.md",
+      "references": [
+        "skills/yuanyi-drama-assets/references/prompt-templates.md"
+      ]
+    },
+    {
+      "id": "sub-visual",
+      "name": "分镜与提示词",
+      "type": "subagent",
+      "skill_paths": [
+        "skills/yuanyi-drama-shots/SKILL.md",
+        "skills/yuanyi-drama-prompts/SKILL.md"
+      ],
+      "references": [
+        "skills/yuanyi-drama-shots/references/prompt-templates.md",
+        "skills/yuanyi-drama-prompts/references/prompt-templates.md"
+      ]
+    },
+    {
+      "id": "sub-edit",
+      "name": "剪辑与配乐",
+      "type": "subagent",
+      "skill_path": "skills/yuanyi-drama-edit-music/SKILL.md",
+      "references": [
+        "skills/yuanyi-drama-edit-music/references/prompt-templates.md"
+      ]
+    }
+  ]
+}
