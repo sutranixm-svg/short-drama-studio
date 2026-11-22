@@ -69,5 +69,12 @@ bash adapters/install.sh
    ```
 4. **MCP 挂载（可选）**：`python tools/mcp_server.py`，把生图、生视频、粗剪暴露为 Bot 原生工具（需 `pip install fastmcp`）。
 
-> 引擎能力差异：`bailian` 生图会轮询并下载结果；`jimeng` / `kling` 当前只提交请求并返回原始响应，产物下载需按其平台返回结构补全；`mock` 与 `local` 可直接产出文件。
+> 引擎能力差异：
+> - `mock` / `local`：无需外网，直接产出文件（mock 用 FFmpeg 占位画面）。
+> - `bailian` / `kling` / `jimeng`：均为「提交 → 轮询 → 下载」完整实现，会把平台产物落盘到 `--out`。
+> - 鉴权：百炼用 `BAILIAN_API_KEY`；可灵需 `KLING_ACCESS_KEY` + `KLING_SECRET_KEY`（内部签 HS256 JWT）；即梦官方视觉 API 需 `JIMENG_ACCESS_KEY` + `JIMENG_SECRET_KEY`（HMAC-SHA256 签名），只填 `JIMENG_API_KEY` 时走 Bearer，仅适用于自建中转。
+> - 即梦的 `req_key` 与返回字段随模型变化，可用 `JIMENG_IMAGE_REQ_KEY` / `JIMENG_VIDEO_REQ_KEY` / `JIMENG_API_VERSION` 覆盖，不必改代码。
+>
+> 已验证范围：`mock` 端到端实跑；三家异步协议用本地 mock 服务验证了提交、多轮轮询、产物下载与失败分支。**真实平台调用尚未用有效密钥验证**，首次接入请先用一条低成本的图测试。
+
 
