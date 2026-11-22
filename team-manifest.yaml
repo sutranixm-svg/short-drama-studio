@@ -1,16 +1,16 @@
-team_name: yuanyi-short-drama-studio
+team_name: short-drama-studio
 version: "1.0.0"
-description: "元一AI短剧多智能体制作团队（1主4子，50条提示词一条链关键词路由）"
+description: "AI短剧多智能体制作团队（1主4子，50条提示词一条链关键词路由）"
 orchestration: hub-and-spoke # 主从调度模式，仅主Bot直接与人类交互
 
 agents:
-  - id: yuanyi-drama-director
-    name: 元一短剧总控主Bot
+  - id: drama-director
+    name: 短剧总控主Bot
     role: orchestrator
     user_facing: true
-    instruction_file: skills/yuanyi-drama-director/SKILL.md
+    instruction_file: skills/drama-director/SKILL.md
     knowledge_files:
-      - skills/yuanyi-drama-director/references/prompt-router.md
+      - skills/drama-director/references/prompt-router.md
     can_delegate_to:
       - sub-script
       - sub-assets
@@ -22,20 +22,20 @@ agents:
     role: worker
     user_facing: false
     prompt_range: P01-P10
-    instruction_file: skills/yuanyi-drama-script/SKILL.md
+    instruction_file: skills/drama-script/SKILL.md
     knowledge_files:
-      - skills/yuanyi-drama-script/references/prompt-templates.md
-      - skills/yuanyi-drama-script/references/example.md
+      - skills/drama-script/references/prompt-templates.md
+      - skills/drama-script/references/example.md
 
   - id: sub-assets
     name: 美术设定
     role: worker
     user_facing: false
     prompt_range: P11-P20
-    instruction_file: skills/yuanyi-drama-assets/SKILL.md
+    instruction_file: skills/drama-assets/SKILL.md
     knowledge_files:
-      - skills/yuanyi-drama-assets/references/prompt-templates.md
-      - skills/yuanyi-drama-assets/references/example.md
+      - skills/drama-assets/references/prompt-templates.md
+      - skills/drama-assets/references/example.md
 
   - id: sub-visual
     name: 分镜与提示词
@@ -43,20 +43,20 @@ agents:
     user_facing: false
     prompt_range: P21-P40
     instruction_files:
-      - skills/yuanyi-drama-shots/SKILL.md
-      - skills/yuanyi-drama-prompts/SKILL.md
+      - skills/drama-shots/SKILL.md
+      - skills/drama-prompts/SKILL.md
     knowledge_files:
-      - skills/yuanyi-drama-shots/references/prompt-templates.md
-      - skills/yuanyi-drama-prompts/references/prompt-templates.md
-      - skills/yuanyi-drama-shots/references/example.md
-      - skills/yuanyi-drama-prompts/references/example.md
+      - skills/drama-shots/references/prompt-templates.md
+      - skills/drama-prompts/references/prompt-templates.md
+      - skills/drama-shots/references/example.md
+      - skills/drama-prompts/references/example.md
 
   - id: sub-edit
     name: 剪辑与配乐
     role: worker
     user_facing: false
     prompt_range: P41-P50
-    instruction_file: skills/yuanyi-drama-edit-music/SKILL.md
+    instruction_file: skills/drama-edit-music/SKILL.md
     knowledge_files:
-      - skills/yuanyi-drama-edit-music/references/prompt-templates.md
-      - skills/yuanyi-drama-edit-music/references/example.md
+      - skills/drama-edit-music/references/prompt-templates.md
+      - skills/drama-edit-music/references/example.md

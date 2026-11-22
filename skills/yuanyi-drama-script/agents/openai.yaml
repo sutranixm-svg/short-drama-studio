@@ -1,4 +1,0 @@
-interface:
-  display_name: "元一 剧本完善与诊断工具包"
-  short_description: "把一个想法或已有剧本，整理成能拍、能生成、能检查的分集剧本。"
-  default_prompt: "请使用 $yuanyi-drama-script，根据我的资料协助完成当前短剧任务。"

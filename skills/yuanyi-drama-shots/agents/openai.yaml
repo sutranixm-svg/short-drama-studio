@@ -1,4 +1,0 @@
-interface:
-  display_name: "元一 分镜与镜头设计知识库"
-  short_description: "把文字剧情变成镜头，让观众看懂发生了什么、人物在看谁、悬念落在哪里。"
-  default_prompt: "请使用 $yuanyi-drama-shots，根据我的资料协助完成当前短剧任务。"

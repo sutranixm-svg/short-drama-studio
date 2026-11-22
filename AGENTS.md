@@ -9,10 +9,10 @@
 - **支持原生多 Bot / 子智能体的平台**（如 Claude Code、OpenClaw、DeepSeek Harness、Grok Bot Teammates）：
   按 `team-manifest.yaml` 中的 5 个 `agents` 条目（或直接加载 `.claude/agents/` 下的 5 个声明文件），逐一创建/注册独立 Bot，并将各自的 `instruction_file` 设为系统指令，挂载对应的 `knowledge_files`。
 - **单会话平台（不支持物理创建多个 Bot）**：
-  自动启用「角色切换调度模式」，将自己设为 `yuanyi-drama-director`（主 Bot），在派单时严格按路由表读取对应子 Bot 的 `SKILL.md` 与 `references/prompt-templates.md` 执行。
+  自动启用「角色切换调度模式」，将自己设为 `drama-director`（主 Bot），在派单时严格按路由表读取对应子 Bot 的 `SKILL.md` 与 `references/prompt-templates.md` 执行。
 
 ## 3. 严格执行分工与一条链路由
-- **人机边界**：仅 `yuanyi-drama-director` 直接对接人类用户，严格执行 `拆意图 → 查 prompt-router.md → 取模板派单 → 人工卡点` 协议。
+- **人机边界**：仅 `drama-director` 直接对接人类用户，严格执行 `拆意图 → 查 prompt-router.md → 取模板派单 → 人工卡点` 协议。
 - **子 Bot 纪律**：4 个子 Bot（`sub-script`、`sub-assets`、`sub-visual`、`sub-edit`）仅接收主 Bot 的派单头，禁止越权跨环节输出。
 
 ## 4. 初始化验收汇报

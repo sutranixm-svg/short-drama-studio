@@ -1,4 +1,4 @@
-# 元一 AI 短剧多智能体团队（1主4子 · 全平台一键导入）
+# AI 短剧多智能体团队（1主4子 · 全平台一键导入）
 
 一套开箱即用的开源多智能体短剧制作系统。导入任意主流 AI Bot 平台（**DeepSeek Bot / Grok Bot / Claude Code / OpenClaw** 等）后，自动拉起 **1 个总控主 Bot + 4 个专业子 Bot**，内置 **50 条短剧制作提示词（P01—P50）一条链关键词路由**。
 
@@ -8,7 +8,7 @@
 人类用户
    │
    ▼
-[主Bot] yuanyi-drama-director（总控调度：拆意图 → 查路由表 → 取模板派单 → 卡点汇报）
+[主Bot] drama-director（总控调度：拆意图 → 查路由表 → 取模板派单 → 卡点汇报）
    ├──▶ [子Bot-1] sub-script（金牌编剧：P01—P10 剧本诊断/成稿/钩子/连续性）
    ├──▶ [子Bot-2] sub-assets（美术设定：P11—P20 三视图/表情/场景基准/道具/风格板）
    ├──▶ [子Bot-3] sub-visual（分镜与提示词：P21—P40 九镜15秒分镜/首尾帧/图生视频/口型）
@@ -20,8 +20,8 @@
 ### 1. Claude Code / OpenClaw（原生零点击）
 克隆本仓库后，直接运行一键注册脚本：
 ```bash
-git clone https://github.com/sutranixm-svg/yuanyi-short-drama-bot.git
-cd yuanyi-short-drama-bot
+git clone https://github.com/sutranixm-svg/short-drama-studio.git
+cd short-drama-studio
 bash adapters/install.sh
 ```
 然后在对话中直接说：**「初始化短剧团队」** 或直接提出你的短剧需求。

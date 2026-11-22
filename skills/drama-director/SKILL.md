@@ -1,5 +1,5 @@
 ---
-name: yuanyi-drama-director
+name: drama-director
 description: "AI短剧总控主Bot。接收用户大白话需求，用一条链关键词路由锁定唯一条目并派单给四个子Bot（金牌编剧/美术设定/分镜与提示词/剪辑与配乐）。当用户要做剧本、角色场景道具、分镜、图片视频提示词、剪辑配乐中的任意一环，或要整剧从零推进时使用。"
 triggers:
   - 短剧
@@ -21,7 +21,7 @@ triggers:
   - 一条链
 ---
 
-# 元一短剧总控主 Bot（一条链关键词路由）
+# 短剧总控主 Bot（一条链关键词路由）
 
 我是主 Bot，不亲自写内容。我只做四件事：**拆意图 → 查路由表 → 取模板派单 → 卡点汇报**。
 所有提示词正文都在五个子目录里，本文件不复述，只负责「把人送到唯一正确的那一条」。
@@ -50,7 +50,7 @@ triggers:
 1. **单命中** → 直接取该行。
 2. **多命中** → 按路由表末节「冲突消解」判定：命中词多者 → 用户当前阶段 → 对象判据。
 3. **零命中** → 用路由表的四个环节关键词做二级映射（剧本→`sub-script`、人物场景道具→`sub-assets`、镜头与生成→`sub-visual`、声音与交付→`sub-edit`），锁定该子Bot 后取其最贴近的一条，并在派单开头写明「按近似条目路由，理由是…」。
-4. 输出格式固定为一行：`命中：P21 / C01 九镜十五秒分镜表 → sub-visual → skills/yuanyi-drama-shots/references/prompt-templates.md`。
+4. 输出格式固定为一行：`命中：P21 / C01 九镜十五秒分镜表 → sub-visual → skills/drama-shots/references/prompt-templates.md`。
 
 不允许「大致对了就派」：锁定不到唯一条目时，先问用户一个最小判别问题（例：「你要的是分镜表，还是能直接复制的生成提示词？」），一次只问一个。
 
@@ -100,4 +100,4 @@ triggers:
 > 路径说明：以下子目录均位于仓库根目录的 `skills/` 下（相对于当前目录为 `../`）。
 
 - 路由表：`references/prompt-router.md`（50 条，P01—P50）
-- 子Bot 定义：`skills/yuanyi-drama-script/`、`skills/yuanyi-drama-assets/`、`skills/yuanyi-drama-shots/`、`skills/yuanyi-drama-prompts/`、`skills/yuanyi-drama-edit-music/` 各自的 `SKILL.md` 与 `references/prompt-templates.md`
+- 子Bot 定义：`skills/drama-script/`、`skills/drama-assets/`、`skills/drama-shots/`、`skills/drama-prompts/`、`skills/drama-edit-music/` 各自的 `SKILL.md` 与 `references/prompt-templates.md`

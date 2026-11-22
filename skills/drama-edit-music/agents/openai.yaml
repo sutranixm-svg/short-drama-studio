@@ -1,0 +1,4 @@
+interface:
+  display_name: "剪辑技巧与配乐知识库"
+  short_description: "把片段拼成完整作品：故事连起来，人声听清楚，音乐跟情绪走，文件交得完整。"
+  default_prompt: "请使用 $drama-edit-music，根据我的资料协助完成当前短剧任务。"

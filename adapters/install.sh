@@ -2,7 +2,7 @@
 set -e
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-echo "正在安装元一AI短剧多智能体团队（1主4子）..."
+echo "正在安装AI短剧多智能体团队（1主4子）..."
 
 # 1. 链接到 Claude Code 全局技能与子Agent目录
 if [ -d "$HOME/.claude" ] || [ "${1:-}" = "--claude" ]; then
