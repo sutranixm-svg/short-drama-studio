@@ -67,7 +67,7 @@ bash adapters/install.sh
 
 本团队是纯文件形态（Markdown + YAML frontmatter），可被其他 agent 产品直接读取：
 
-- **OpenMausBot**（`milind-soni/OpenMausBot`，Apache-2.0）：其 team playbook 与本仓库结构同构，[`packages/short-drama-crew.md`](packages/short-drama-crew.md) 即按该格式产出的可导入包。注意官方构建仅 macOS。
+- **OpenMausBot**（`milind-soni/OpenMausBot`，Apache-2.0）：其 team playbook 与本仓库结构同构，[`packages/short-drama-crew.md`](packages/short-drama-crew.md) 即按该格式产出的可导入包。官方提供 macOS / **Windows x64** / Linux 构建（Windows 安装包未签名，SmartScreen 需选「仍要运行」）。
 - **DSBot**（`zylzyqzz/dsbot`）：DeepSeek Harness 的手机 PWA 网关，属于访问层而非编排层，不直接承载本模式。
 
 详细对照与未验证项见 [`docs/ecosystem-compat.md`](docs/ecosystem-compat.md)。

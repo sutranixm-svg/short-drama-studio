@@ -6,7 +6,7 @@
 
 | 项目 | 适配本模式（1主4子 + 关键词路由） | 用法 |
 | --- | --- | --- |
-| **OpenMausBot** `milind-soni/OpenMausBot` | **部分适配**：它的 playbook 是「单 Markdown + YAML frontmatter」，与本仓库的 SKILL.md 同构，可直接产出可导入包；但官方只发布 macOS 构建 | 用 [`packages/short-drama-crew.md`](../packages/short-drama-crew.md) 作为 team playbook 交给它的 Chief of Staff |
+| **OpenMausBot** `milind-soni/OpenMausBot` | **部分适配**：它的 playbook 是「单 Markdown + YAML frontmatter」，与本仓库的 SKILL.md 同构，可直接产出可导入包；官方提供 macOS / Windows x64 / Linux 三平台构建 | 用 [`packages/short-drama-crew.md`](../packages/short-drama-crew.md) 作为 team playbook 交给它的 Chief of Staff |
 | **dsbot** `zylzyqzz/dsbot` | **不适配**：它不是 bot 编排框架，而是把 DeepSeek Harness（DSH）变成手机 PWA 的接入网关 | 可作为「在手机上访问 DSH」的壳；DSH 本身的 skill 机制与本仓库的对接另行确认 |
 
 ## OpenMausBot
@@ -37,8 +37,9 @@
 
 **限制**：
 
-- 官方构建仅 macOS。Windows 用户（本仓库的主要环境）无法直接安装；要用只能自行从源码构建，**未验证**。
-- 它是「多 bot 各带一台电脑」的重型桌面形态，与本仓库「纯文件 + 可选 CLI 工具」的轻量定位不同，不需要为了用本模式去装它。
+- **Windows 可用**。最新 release `v0.1.177` 的实际资产：`OpenMausBot-0.1.177-setup.exe`（Windows x64）、`arm64.dmg` / `x64.dmg`（macOS）、`amd64.deb` / `x86_64.rpm` / `x86_64.AppImage`（Linux）。
+  Windows 安装包**尚未代码签名**，SmartScreen 会提示「未知发布者」，需点「更多信息 → 仍要运行」；默认安装到 `%LOCALAPPDATA%\Programs\OpenMausBot`，不要手动搬目录（后续更新会回到安装器记录的路径）。
+- 它是「多 bot 各带一台电脑」的重型桌面形态（Electron），与本仓库「纯文件 + 可选 CLI 工具」的轻量定位不同，不需要为了用本模式去装它。
 
 ## dsbot
 
