@@ -41,10 +41,36 @@ bash adapters/install.sh
 ├── team-manifest.yaml               # 1主4子唯一真相源清单
 ├── .claude/agents/                  # 5 个独立 Bot 声明文件
 ├── adapters/                        # DeepSeek Bot / Grok Bot / 一键安装脚本
+├── packages/                        # 可移植 team playbook（OpenMausBot 格式）
+├── docs/                            # 使用说明、生态兼容、对照验收清单
 ├── tools/                           # 生图 / 生视频 / FFmpeg 粗剪 / MCP Server
 ├── .env.example                     # 引擎密钥模板（复制为 .env 后填写）
 └── skills/                          # 6 个核心 Skill（主控路由 + 5大短剧知识库）
 ```
+
+## 推荐工作流：外置软件出素材（即梦 / 可灵）
+
+提示词在仓库里、生成在外面做，通常是更稳的路径——**用本仓库的提示词在即梦 / 可灵网页版手工出素材，回到仓库做验收与拼接**：
+
+1. 从 `skills/drama-assets/references/prompt-templates.md` 取 A01 三视图、A04 场景基准、A06 道具，按 `【】` 填空后在即梦/可灵生成；
+2. 从 `skills/drama-prompts/references/prompt-templates.md` 取 P02 首帧 / P04 单镜视频，生成本镜素材；
+3. 按 `CHAR_001_v01.png`、`shot_03_v01.mp4` 命名，放进 `workspace/`；
+4. 用 [`docs/acceptance-checklist.md`](docs/acceptance-checklist.md) 逐项验收，再交给 `tools/render_cut.py` 拼接。
+
+这条路不需要任何 API Key，只依赖平台网页版；`tools/` 的自动出片是可选替代方案。
+
+## 素材对照验收
+
+素材出完后按 [`docs/acceptance-checklist.md`](docs/acceptance-checklist.md) 走：填提交表 → 资产类勾 A10 项、镜头类勾 P10 项 → 得「可留用 / 需修改 / 需重生成」→ 需修改时用 P39(P09) 局部提示词只改错处 → 可留用后登记进资产表/镜头表。
+
+## 生态兼容（OpenMausBot / DSBot）
+
+本团队是纯文件形态（Markdown + YAML frontmatter），可被其他 agent 产品直接读取：
+
+- **OpenMausBot**（`milind-soni/OpenMausBot`，Apache-2.0）：其 team playbook 与本仓库结构同构，[`packages/short-drama-crew.md`](packages/short-drama-crew.md) 即按该格式产出的可导入包。注意官方构建仅 macOS。
+- **DSBot**（`zylzyqzz/dsbot`）：DeepSeek Harness 的手机 PWA 网关，属于访问层而非编排层，不直接承载本模式。
+
+详细对照与未验证项见 [`docs/ecosystem-compat.md`](docs/ecosystem-compat.md)。
 
 ## 音视频自动出片引擎（即梦 / 可灵 / 百炼 / 本地模型 + FFmpeg）
 
